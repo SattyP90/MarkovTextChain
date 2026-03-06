@@ -2,7 +2,7 @@ import random
 import re
 
 # Read text file
-with open("LOTF.txt", "r", encoding="utf-8") as file:
+with open("diaryofwhimpy.txt", "r", encoding="utf-8") as file:
     text = file.read()
 
 # Convert to lowercase
