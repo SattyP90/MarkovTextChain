@@ -1,30 +1,30 @@
 import random
 import re
 
-# Read text file
+#read text file
 with open("diaryofwhimpy.txt", "r", encoding="utf-8") as file:
     text = file.read()
 
-# Convert to lowercase
+#convert to lowercase
 text = text.lower()
 
-# Split text into sentences using '.'
+#split text into sentences using '.'
 sentences = text.split(".")
 
 trigram_table = {}
 
 for sentence in sentences:
     
-    # Remove punctuation except spaces
+    #remove punctuation except spaces
     sentence = re.sub(r'[^a-z\s]', '', sentence)
 
     words = sentence.split()
 
-    # Skip short sentences
+    #skip short sentences
     if len(words) < 3:
         continue
 
-    # Build trigram relationships
+    # build trigram relationships
     for i in range(len(words) - 2):
         w1 = words[i]
         w2 = words[i + 1]
@@ -37,22 +37,22 @@ for sentence in sentences:
 
         trigram_table[key].append(w3)
 
-# Generate a 10 word sentence
-start = random.choice(list(trigram_table.keys()))
-w1, w2 = start
+#generate 20 sentences
+for _ in range(20):
+    start = random.choice(list(trigram_table.keys()))
+    w1, w2 = start
 
-sentence = [w1, w2]
+    sentence = [w1, w2]
 
-for _ in range(8):  # already have 2 words
-    key = (w1, w2)
+    for _ in range(8):  # already have 2 words
+        key = (w1, w2)
 
-    if key not in trigram_table:
-        break
+        if key not in trigram_table:
+            break
 
-    next_word = random.choice(trigram_table[key])
-    sentence.append(next_word)
+        next_word = random.choice(trigram_table[key])
+        sentence.append(next_word)
 
-    w1, w2 = w2, next_word
+        w1, w2 = w2, next_word
 
-
-print(" ".join(sentence))
+    print(" ".join(sentence))
