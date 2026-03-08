@@ -1,6 +1,9 @@
 import random
 import re
 
+
+numberof_sentences = 100
+
 def build_trigram_table(filename):
     trigram_table = {}
 
@@ -67,11 +70,11 @@ def generate_sentence(trigram_table, length=10):
 
 
 
-def generate_sentences(trigram_table, count=20, length=10):
+def generate_sentences(trigram_table, numberof_sentences, length=10):
 
     sentences = []
 
-    for _ in range(count):
+    for _ in range(numberof_sentences):
         sentence = generate_sentence(trigram_table, length)
         sentences.append(sentence)
 
@@ -81,9 +84,9 @@ def generate_sentences(trigram_table, count=20, length=10):
 # for running as a script
 if __name__ == "__main__":
 
-    trigram_table = build_trigram_table("diaryofwhimpy.txt")
+    trigram_table = build_trigram_table("LOFT.txt")
 
-    sentences = generate_sentences(trigram_table, 20, 10)
+    sentences = generate_sentences(trigram_table, numberof_sentences, 10)
 
     for s in sentences:
         print(s)
