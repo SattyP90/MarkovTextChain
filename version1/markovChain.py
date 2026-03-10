@@ -24,7 +24,7 @@ for sentence in sentences:
     if len(words) < 3:
         continue
 
-    # build trigram relationships
+    #build trigram relationships
     for i in range(len(words) - 2):
         w1 = words[i]
         w2 = words[i + 1]
