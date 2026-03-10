@@ -1,4 +1,4 @@
-from markov_generator import build_trigram_table, generate_sentences
+from version2.markov_generator import build_trigram_table, generate_sentences
 
 # Build model
 trigram_table = build_trigram_table("LOTF.txt")
