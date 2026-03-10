@@ -1,10 +1,10 @@
-from version2.markov_generator import build_trigram_table, generate_sentences
+from markov_generator import build_trigram_table, generate_sentences
 
 # Build model
-trigram_table = build_trigram_table("LOTF.txt")
+trigram_table = build_trigram_table("diaryofwhimpy.txt")
 
 # Load corpus for novelty comparison
-with open("LOTF.txt", "r", encoding="utf-8") as f:
+with open("diaryofwhimpy.txt", "r", encoding="utf-8") as f:
     corpus_words = set(f.read().lower().split())
 
 #sentence lenght score

@@ -10,10 +10,10 @@ sentences = load_text("diaryofwhimpy.txt")
 
 trigram_table = build_trigram_table(sentences)
 
-# Build word frequencies for rarity scoring
+#build word frequencies for rarity scoring
 word_frequencies = build_word_frequencies(sentences)
 
-# Build corpus bigrams
+#build corpus bigrams
 corpus_bigrams = set()
 
 for s in sentences:
@@ -21,10 +21,10 @@ for s in sentences:
     for i in range(len(words)-1):
         corpus_bigrams.add((words[i], words[i+1]))
 
-# Build corpus trigrams for better novelty detection
+#build corpus trigrams for better novelty detection
 corpus_trigrams = build_trigram_set(sentences)
 
-# Build start pairs from real sentences
+#build start pairs from real sentences
 start_pairs = []
 
 for s in sentences:
@@ -40,13 +40,13 @@ generated_results = []
 attempts = 0
 max_attempts = 1000
 
-# Generate sentences with more attempts for better quality
+#generate sentences with more attempts for better quality
 while len(generated_results) < 500 and attempts < max_attempts:
     attempts += 1
     
     start = random.choice(start_pairs)
     
-    # Variable length for natural variety
+    #variable length for natural variety
     sentence = generate_sentence(trigram_table, start, min_length=7, max_length=15)
 
     if not is_novel(sentence, sentences):
@@ -55,7 +55,7 @@ while len(generated_results) < 500 and attempts < max_attempts:
     if not quality_filter(sentence):
         continue
 
-    # Enhanced creativity score with all factors
+    #enhanced creativity score with all factors
     score = creativity_score(sentence, corpus_bigrams, word_frequencies, corpus_trigrams)
 
     generated_results.append((sentence, score))
@@ -63,13 +63,13 @@ while len(generated_results) < 500 and attempts < max_attempts:
 print(f"Generated {len(generated_results)} quality sentences from {attempts} attempts")
 print("Applying diversity filter and ranking...\n")
 
-# Sort by creativity
+#sort by creativity
 generated_results.sort(key=lambda x: x[1], reverse=True)
 
-# Apply semantic diversity filter to top candidates
+#apply semantic diversity filter to top candidates
 top_diverse = semantic_diversity_filter(generated_results[:50], min_distance=3)
 
-# Get top results
+#get top results
 top_five = top_diverse[:5] if len(top_diverse) >= 5 else generated_results[:5]
 
 
@@ -83,7 +83,7 @@ for i, (sentence, score) in enumerate(top_five, start=1):
 
 
 
-# Save outputs
+# savvve outputs
 # with open("outputs.txt", "w", encoding="utf-8") as f:
 
 #     f.write("Top 3 Most Creative Sentences\n\n")

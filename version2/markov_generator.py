@@ -84,7 +84,7 @@ def generate_sentences(trigram_table, numberof_sentences, length=10):
 # for running as a script
 if __name__ == "__main__":
 
-    trigram_table = build_trigram_table("LOFT.txt")
+    trigram_table = build_trigram_table("LOTF.txt")
 
     sentences = generate_sentences(trigram_table, numberof_sentences, 10)
 

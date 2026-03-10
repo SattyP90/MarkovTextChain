@@ -55,7 +55,7 @@ def weighted_choice(words):
 def generate_sentence(trigram_table, start_pair, min_length=7, max_length=15):
     """Generate sentence with variable length for natural variety"""
     
-    # Random target length within range
+    #random target length within range
     target_length = random.randint(min_length, max_length)
     
     w1, w2 = start_pair

@@ -58,7 +58,7 @@ def entropy_score(sentence): # higher entropy means more unpredictability and po
         prob = count / total
         entropy -= prob * math.log2(prob)
     
-    # Normalize by max possible entropy
+    #normalize by max possible entropy
     max_entropy = math.log2(total) if total > 1 else 1
     return entropy / max_entropy
 
@@ -71,7 +71,7 @@ def lexical_diversity_score(sentence): #measures vocabulary variety
     
     unique_ratio = len(set(words)) / len(words)
     
-    # Bonus for longer sentences with high diversity
+    #bonus for longer sentences with high diversity
     length_bonus = min(len(words) / 15, 1.0)
     
     return unique_ratio * (0.7 + 0.3 * length_bonus)
@@ -82,21 +82,21 @@ def coherence_score(sentence):
     words = sentence.split()
     length = len(words)
     
-    # Penalize very short sentences
+    #penalize very short sentences
     if length < 5:
         return 0.3
     
-    # Penalize very long sentences
+    #penalize very long sentences
     if length > 20:
         return 0.4
     
-    # Check for excessive repetition
+    #check for excessive repetition
     word_counts = Counter(words)
     max_repeat = max(word_counts.values())
     if max_repeat > length * 0.4:  # More than 40% repetition
         return 0.3
     
-    # Optimal length range
+    #optimal length range
     if 7 <= length <= 15:
         return 1.0
     
@@ -106,32 +106,32 @@ def coherence_score(sentence):
 def creativity_score(sentence, corpus_bigrams, word_frequencies=None, corpus_trigrams=None):
     """Enhanced multi-factor creativity scoring"""
     
-    # Core novelty - how new are the combinations
+    #core novelty - how new are the combinations
     novelty = novelty_score(sentence, corpus_bigrams, corpus_trigrams)
     
-    # Lexical diversity - variety of words used
+    #lexical diversity - variety of words used
     diversity = lexical_diversity_score(sentence)
     
-    # Entropy - unpredictability of word patterns
+    #entropy - unpredictability of word patterns
     entropy = entropy_score(sentence)
     
-    # Coherence - reasonable structure
+    #coherence - reasonable structure
     coherence = coherence_score(sentence)
     
-    # Word rarity - using less common words
+    #word rarity - using less common words
     rarity = 0
     if word_frequencies:
         rarity = word_rarity_score(sentence, word_frequencies)
         # Normalize rarity to 0-1 range (assuming typical IDF range 0-5)
         rarity = min(rarity / 3, 1.0)
     
-    # Weighted combination
+    #weufghted combination
     score = (
-        novelty * 0.35 +        # New combinations matter most
-        diversity * 0.25 +      # Variety of vocabulary
-        entropy * 0.15 +        # Unpredictability
-        rarity * 0.15 +         # Uncommon words
-        coherence * 0.10        # Still needs to make some sense
+        novelty * 0.35 +        #new combinations matter most
+        diversity * 0.25 +      #variety of vocabulary
+        entropy * 0.15 +        #unpredictability adds creativity
+        rarity * 0.15 +         #uncommon words
+        coherence * 0.10        #still needs to make some sense
     )
     
-    return round(score * 10, 3)  # Scale to 0-10
+    return round(score * 10, 3)  #scale to 0-10
