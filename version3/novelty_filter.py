@@ -28,7 +28,7 @@
 #     return novelty_ratio
 
 # bigram novelty filter with threshold
-#check generated sentence bigrams against corpus bigrams, require at least 30% new bigrams for novelty
+#check generated sentence against corpus bigrams, require at least 30% new bigrams for novelty
 def is_novel(sentence, corpus_sentences):
     """Check if sentence is truly novel (not substring of corpus)"""
     sentence = sentence.strip()
@@ -58,7 +58,7 @@ def quality_filter(sentence):
         word_counts[word] = word_counts.get(word, 0) + 1
     
     max_repetition = max(word_counts.values())
-    if max_repetition > len(words) * 0.4:  # No word should appear >40% of time
+    if max_repetition > len(words) * 0.4: 
         return False
     
     # Check for immediate repetition patterns (word word)
@@ -66,7 +66,7 @@ def quality_filter(sentence):
         if words[i] == words[i + 1]:
             return False
     
-    # Check lexical diversity - at least 60% unique words
+    # Check lexical diversity - atlea st 60% unique words
     if len(set(words)) < len(words) * 0.6:
         return False
 
@@ -87,7 +87,7 @@ def semantic_diversity_filter(sentences, min_distance=3):
         for existing, _ in diverse_sentences:
             words_existing = set(existing.split())
             
-            # Jaccard similarity
+            # similarity
             intersection = len(words_new & words_existing)
             union = len(words_new | words_existing)
             similarity = intersection / union if union > 0 else 0
